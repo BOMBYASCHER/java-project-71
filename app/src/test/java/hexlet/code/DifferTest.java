@@ -16,5 +16,7 @@ public class DifferTest {
     @Test
     public void testGenerate() throws Exception {
         assertThat(Differ.generate("file1.json", "file2.json")).isEqualTo(correctOutput1);
+        assertThat(Differ.generate("file1.json", "file2.yml")).isEqualTo(correctOutput1);
+        assertThat(Differ.generate("file1.yml", "file2.yml")).isEqualTo(correctOutput1);
     }
 }
