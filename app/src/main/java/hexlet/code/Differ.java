@@ -12,7 +12,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Differ {
-    private static String stringify(LinkedHashMap<String, Object> diff, Map<String, Object> file1, Map<String, Object> file2) {
+    private static String stringify(LinkedHashMap<String, Object> diff,
+                                    Map<String, Object> file1,
+                                    Map<String, Object> file2) {
         final StringBuilder sb = new StringBuilder("{\n");
         diff.forEach((key, value) -> {
             sb.append("  ");
