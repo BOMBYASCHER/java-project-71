@@ -1,9 +1,12 @@
+.DEFAULT_GOAL := build
+build:
+	make -C app build
 run-dist:
-	./app/build/install/app/bin/app
-report:
-	./gradlew jacocoTestReport
+	make -C run-dist
 test:
-	./gradlew test
+	make -C app test
+report:
+	make -C app report
 lint:
-	./gradlew checkstyleMain checkstyleTest
+	make -C app lint
 .PHONY: build

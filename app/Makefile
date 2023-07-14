@@ -1,3 +1,6 @@
+.DEFAULT_GOAL := build
+build:
+	./gradlew clean build
 run-dist:
 	./build/install/app/bin/app
 report:
