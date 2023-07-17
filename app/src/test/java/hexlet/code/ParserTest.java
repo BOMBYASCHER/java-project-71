@@ -14,19 +14,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ParserTest {
     @Test
     public void testParserOnJson() throws Exception {
-        Map<String, Object> actual = Parser.parse("file1.json");
+        var filePath = Paths.get("src", "test", "resources", "file1.json");
+        Map<String, Object> actual = Parser.parse(String.valueOf(filePath));
         ObjectMapper mapperJson = new ObjectMapper();
         Map<String, Object> expected = mapperJson
-                .readValue(Files.readString(Paths.get("file1.json")), new TypeReference<>() {
+                .readValue(Files.readString(filePath), new TypeReference<>() {
                 });
         assertThat(actual).isEqualTo(expected);
     }
     @Test
     public void testParserOnYaml() throws Exception {
-        Map<String, Object> actual = Parser.parse("file2.yml");
+        var filePath = Paths.get("src", "test", "resources", "file2.yml");
+        Map<String, Object> actual = Parser.parse(String.valueOf(filePath));
         ObjectMapper mapperYaml = new YAMLMapper();
         Map<String, Object> expected = mapperYaml
-                .readValue(Files.readString(Paths.get("file2.yml")), new TypeReference<>() {
+                .readValue(Files.readString(filePath), new TypeReference<>() {
                 });
         assertThat(actual).isEqualTo(expected);
     }

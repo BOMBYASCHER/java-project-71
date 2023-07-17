@@ -4,34 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Objects;
 
 public class Differ {
-    private static String stringify(LinkedHashMap<String, Object> diff,
-                                    Map<String, Object> file1,
-                                    Map<String, Object> file2) {
-        final StringBuilder sb = new StringBuilder("{\n");
-        diff.forEach((key, value) -> {
-            sb.append("  ");
-            if (value.equals("added")) {
-                sb.append("+ ").append(key).append(": ").append(file2.get(key));
-            }
-            if (value.equals("deleted")) {
-                sb.append("- ").append(key).append(": ").append(file1.get(key));
-            }
-            if (value.equals("changed")) {
-                sb.append("- ").append(key).append(": ").append(file1.get(key));
-                sb.append("\n");
-                sb.append("  ");
-                sb.append("+ ").append(key).append(": ").append(file2.get(key));
-            }
-            if (value.equals("unchanged")) {
-                sb.append("  ").append(key).append(": ").append(file1.get(key));
-            }
-            sb.append("\n");
-        });
-        sb.append("}");
-        return sb.toString();
-    }
     public static String generate(String filepath1, String filepath2) throws Exception {
         Map<String, Object> file1 = Parser.parse(filepath1);
         Map<String, Object> file2 = Parser.parse(filepath2);
@@ -41,7 +16,7 @@ public class Differ {
         LinkedHashMap<String, Object> difference = new LinkedHashMap<>();
         keys.forEach(key -> {
             if (file1.containsKey(key) && file2.containsKey(key)) {
-                if (file1.get(key).equals(file2.get(key))) {
+                if (Objects.equals(file1.get(key), file2.get(key))) {
                     difference.put(key, "unchanged");
                 } else {
                     difference.put(key, "changed");
@@ -54,6 +29,6 @@ public class Differ {
                 }
             }
         });
-        return stringify(difference, file1, file2);
+        return Formatter.stringify(difference, file1, file2);
     }
 }

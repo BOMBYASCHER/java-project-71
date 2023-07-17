@@ -11,7 +11,8 @@ import java.util.Map;
 
 public class Parser {
     private static String getExtension(String filePath) {
-        return filePath.split("\\.")[1];
+        String[] splitFilePath = filePath.split("\\.");
+        return splitFilePath[splitFilePath.length - 1];
     }
     private static ObjectMapper getMapper(String extension) {
         Map<String, ObjectMapper> mappers = new HashMap<>();
