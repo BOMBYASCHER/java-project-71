@@ -22,37 +22,49 @@ public class Plain {
         }
         return value;
     }
+    private static StringBuilder buildAddedString(String key, Object value) {
+        final StringBuilder sb = new StringBuilder();
+        return sb.append("Property ")
+                .append('\'')
+                .append(key)
+                .append('\'')
+                .append(" was added with value: ")
+                .append(checkComplexValue(value));
+    }
+    private static StringBuilder buildDeletedString(String key) {
+        final StringBuilder sb = new StringBuilder();
+        return sb.append("Property ")
+                .append('\'')
+                .append(key)
+                .append('\'')
+                .append(" was removed");
+    }
+    private static StringBuilder buildChangedString(String key, Object value1, Object value2) {
+        final StringBuilder sb = new StringBuilder();
+        return sb.append("Property ")
+                .append('\'')
+                .append(key)
+                .append('\'')
+                .append(" was updated. From ")
+                .append(checkComplexValue(value1))
+                .append(" to ")
+                .append(checkComplexValue(value2));
+    }
     public static String plain(LinkedHashMap<String, Object> diff,
                                Map<String, Object> file1,
                                Map<String, Object> file2) {
         final StringBuilder sb = new StringBuilder();
         diff.forEach((key, value) -> {
             if (value.equals("added")) {
-                sb.append("Property ")
-                        .append('\'')
-                        .append(key)
-                        .append('\'')
-                        .append(" was added with value: ")
-                        .append(checkComplexValue(file2.get(key)))
+                sb.append(buildAddedString(key, file2.get(key)))
                         .append('\n');
             }
             if (value.equals("deleted")) {
-                sb.append("Property ")
-                        .append('\'')
-                        .append(key)
-                        .append('\'')
-                        .append(" was removed")
+                sb.append(buildDeletedString(key))
                         .append('\n');
             }
             if (value.equals("changed")) {
-                sb.append("Property ")
-                        .append('\'')
-                        .append(key)
-                        .append('\'')
-                        .append(" was updated. From ")
-                        .append(checkComplexValue(file1.get(key)))
-                        .append(" to ")
-                        .append(checkComplexValue(file2.get(key)))
+                sb.append(buildChangedString(key, file1.get(key), file2.get(key)))
                         .append('\n');
             }
         });
