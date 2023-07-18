@@ -7,7 +7,7 @@ import java.util.TreeSet;
 import java.util.Objects;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2) throws Exception {
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
         Map<String, Object> file1 = Parser.parse(filepath1);
         Map<String, Object> file2 = Parser.parse(filepath2);
         Set<String> keys = new TreeSet<>();
@@ -29,6 +29,6 @@ public class Differ {
                 }
             }
         });
-        return Formatter.stringify(difference, file1, file2);
+        return Formatter.stringify(difference, file1, file2, format);
     }
 }

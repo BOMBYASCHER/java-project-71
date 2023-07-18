@@ -24,12 +24,12 @@ public class DifferTest {
 
     @Test
     public void testGenerate() throws Exception {
-        assertThat(Differ.generate(file1Json, file2Json)).isEqualTo(correctOutput1);
-        assertThat(Differ.generate(file1Json, file2Yaml)).isEqualTo(correctOutput1);
-        assertThat(Differ.generate(file1Yaml, file2Yaml)).isEqualTo(correctOutput1);
+        assertThat(Differ.generate(file1Json, file2Json, "stylish")).isEqualTo(correctOutput1);
+        assertThat(Differ.generate(file1Json, file2Yaml, "stylish")).isEqualTo(correctOutput1);
+        assertThat(Differ.generate(file1Yaml, file2Yaml, "stylish")).isEqualTo(correctOutput1);
 
-        assertThat(Differ.generate(file3Json, file4Json)).isEqualTo(correctOutput2);
-        assertThat(Differ.generate(file3Json, file4Yaml)).isEqualTo(correctOutput2);
-        assertThat(Differ.generate(file3Yaml, file4Yaml)).isEqualTo(correctOutput2);
+        assertThat(Differ.generate(file3Json, file4Json, "stylish")).isEqualTo(correctOutput2);
+        assertThat(Differ.generate(file3Json, file4Yaml, "stylish")).isEqualTo(correctOutput2);
+        assertThat(Differ.generate(file3Yaml, file4Yaml, "stylish")).isEqualTo(correctOutput2);
     }
 }
